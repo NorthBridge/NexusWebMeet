@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   build-and-deploy:
-    runs-on: docker:19.03.10
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
@@ -21,30 +21,3 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: gh-pages
         FOLDER: build
-
-        test:
-          stage: test
-          variables:
-            DOCKER_DRIVER: overlay
-            DOCKER_HOST: tcp://localhost:2375
-            DOCKER_TLS_CERTDIR: ""
-          script:
-            - sh ./scripts/build_ci.sh
-          timeout: 2 hours
-          only:
-            - develop
-          tags:
-            - qa
-
-
-image: docker:19.03.10
-
-stages:
-  - test
-
-services:
-  - docker:dind
-
-before_script:
-  - docker info
-
