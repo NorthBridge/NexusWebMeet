@@ -4,7 +4,7 @@ WORKDIR NexusWebMeet
 
 COPY . .
 
-ARG CHROMEDRIVER_VERSION
+ENV CHROMEDRIVER_VERSION=88.0.4324.96
 
 RUN apt-get update -qy
 RUN apt-get update && apt-get install --quiet --assume-yes python-dev python-pip unzip wget
@@ -22,5 +22,4 @@ RUN ln -fs /opt/chromedriver/chromedriver /usr/local/bin/chromedriver
 
 RUN export PATH=/usr/local/bin/chromedriver:$PATH
 
-RUN robot -d NexusWebMeet/TestSuites
-
+RUN robot -d TestSuites/reports/ TestSuites/
