@@ -1,9 +1,11 @@
-name: docker:19.03.10
+name: Docker Image CI
 
 on:
   push:
     branches: [ main ]
- 
+  pull_request:
+    branches: [ main ]
+
 jobs:
 
   build:
@@ -13,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag Nexus_ui:$(date +%s)
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
